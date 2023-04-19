@@ -2,7 +2,6 @@ package com.lty.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.lty.annotation.AuthCheck;
 import com.lty.common.BaseResponse;
 import com.lty.common.DeleteRequest;
 import com.lty.common.ErrorCode;
@@ -13,10 +12,8 @@ import com.lty.model.dto.book.BookQueryRequest;
 import com.lty.model.dto.book.BookUpdateRequest;
 import com.lty.model.entity.Book;
 import com.lty.service.BookService;
-import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.web.bind.annotation.*;
 
@@ -93,31 +90,15 @@ public class BookController {
     @ApiOperation(value = "分页获取")
     @GetMapping("/list/page")
     public BaseResponse<Page<Book>> listBookByPage(BookQueryRequest bookQueryRequest) {
-        if (bookQueryRequest == null) {
-            throw new BusinessException(ErrorCode.PARAMS_ERROR);
-        }
-        Book bookQuery = new Book();
-        BeanUtils.copyProperties(bookQueryRequest, bookQuery);
-        //分页基本字段
+        // 分页基本字段
         long current = bookQueryRequest.getCurrent();
         long size = bookQueryRequest.getPageSize();
-        String sortField = bookQueryRequest.getSortField();
-        String sortOrder = bookQueryRequest.getSortOrder();
-        // todo 添加字段支持搜索
-        String bookName = bookQuery.getBookName();
-        String author = bookQuery.getAuthor();
         // 反爬虫
         if (size > 50) {
             throw new BusinessException(ErrorCode.OPERATION_ERROR, "查询数量过多");
         }
-        QueryWrapper<Book> qw = new QueryWrapper<>();
-        // todo 添加查询条件
-        qw.like(StringUtils.isNoneBlank(bookName), "bookName", bookName);
-        qw.eq(StringUtils.isNoneBlank(author), "author", author);
-
-        qw.orderBy(StringUtils.isNotBlank(sortField),
-                "ascend".equals(sortOrder), sortField);
-        Page<Book> bookPage = bookService.page(new Page<>(current, size), qw);
+        Page<Book> page=new Page<>(current,size);
+        Page<Book> bookPage = bookService.page(page, bookService.getQueryWrapper(bookQueryRequest));
         return ResultUtils.success(bookPage);
     }
 

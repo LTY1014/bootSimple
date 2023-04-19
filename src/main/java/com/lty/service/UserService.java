@@ -1,10 +1,12 @@
 package com.lty.service;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.extension.service.IService;
 import com.lty.model.dto.user.UserLoginRequest;
+import com.lty.model.dto.user.UserQueryRequest;
 import com.lty.model.dto.user.UserRegisterRequest;
 import com.lty.model.dto.user.UserUpdateRequest;
 import com.lty.model.entity.User;
-import com.baomidou.mybatisplus.extension.service.IService;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -54,4 +56,11 @@ public interface UserService extends IService<User> {
      * @return
      */
     boolean updateUser(UserUpdateRequest userUpdateRequest);
+
+    /**
+     * 获取查询条件
+     * @param userQueryRequest
+     * @return
+     */
+    QueryWrapper<User> getQueryWrapper(UserQueryRequest userQueryRequest);
 }

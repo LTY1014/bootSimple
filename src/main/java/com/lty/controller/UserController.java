@@ -91,9 +91,9 @@ public class UserController {
 
     @ApiOperation(value = "用户修改")
     @PostMapping("/update")
-    public BaseResponse<Boolean> updateStudent(@RequestBody UserUpdateRequest userUpdateRequest,HttpServletRequest request) {
+    public BaseResponse<Boolean> updateStudent(@RequestBody UserUpdateRequest userUpdateRequest, HttpServletRequest request) {
         // 个人或管理员才可修改
-        if (!(userService.getLoginUser(request).getId().equals(userUpdateRequest.getId())||userService.getLoginUser(request).getUserRole().equals(UserConstant.ADMIN_ROLE))) {
+        if (!(userService.getLoginUser(request).getId().equals(userUpdateRequest.getId()) || userService.getLoginUser(request).getUserRole().equals(UserConstant.ADMIN_ROLE))) {
             throw new BusinessException(ErrorCode.OPERATION_ERROR);
         }
         boolean result = userService.updateUser(userUpdateRequest);
@@ -140,28 +140,15 @@ public class UserController {
         if (userQueryRequest == null) {
             throw new BusinessException(ErrorCode.OPERATION_ERROR);
         }
-        User userQuery=new User();
-        BeanUtils.copyProperties(userQueryRequest,userQuery);
         //分页基本字段
-        long current=userQueryRequest.getCurrent();
+        long current = userQueryRequest.getCurrent();
         long size = userQueryRequest.getPageSize();
-        String sortField = userQueryRequest.getSortField();
-        String sortOrder = userQueryRequest.getSortOrder();
-        // todo 添加字段支持搜索
-        String userAccount=userQuery.getUserAccount();
-        String userName=userQuery.getUserName();
         // 反爬虫
-        if(size>50){
-            throw new BusinessException(ErrorCode.OPERATION_ERROR,"查询数量过多");
+        if (size > 50) {
+            throw new BusinessException(ErrorCode.OPERATION_ERROR, "查询数量过多");
         }
-        QueryWrapper<User> qw=new QueryWrapper<>();
-        // todo 添加查询条件
-        qw.like(StringUtils.isNoneBlank(userAccount),"userAccount",userAccount);
-        qw.like(StringUtils.isNoneBlank(userName),"userName",userName);
-
-        qw.orderBy(StringUtils.isNotBlank(sortField),
-                sortOrder.equals("asc"), sortField);
-        Page<User> userPage = userService.page(new Page<>(current,size),qw);
+        Page<User> page = new Page<>(current, size);
+        Page<User> userPage = userService.page(page, userService.getQueryWrapper(userQueryRequest));
         Page<UserVO> userVOPage = new PageDTO<>(userPage.getCurrent(), userPage.getSize(), userPage.getTotal());
         List<UserVO> userVOList = userPage.getRecords().stream().map(user -> {
             UserVO userVO = new UserVO();
@@ -184,9 +171,9 @@ public class UserController {
             throw new BusinessException(ErrorCode.NO_AUTH_ERROR);
         }
         //endregion
-        long id =deleteRequest.getId();
-        User oldUser=userService.getById(id);
-        if (oldUser==null){
+        long id = deleteRequest.getId();
+        User oldUser = userService.getById(id);
+        if (oldUser == null) {
             throw new BusinessException(ErrorCode.NOT_FOUND_ERROR);
         }
         boolean b = userService.removeById(id);

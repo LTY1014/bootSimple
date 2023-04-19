@@ -7,6 +7,7 @@ import com.lty.constant.UserConstant;
 import com.lty.exception.BusinessException;
 import com.lty.mapper.UserMapper;
 import com.lty.model.dto.user.UserLoginRequest;
+import com.lty.model.dto.user.UserQueryRequest;
 import com.lty.model.dto.user.UserRegisterRequest;
 import com.lty.model.dto.user.UserUpdateRequest;
 import com.lty.model.entity.User;
@@ -16,7 +17,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
-import org.springframework.util.DigestUtils;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -159,6 +159,23 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
         }
         boolean result = this.updateById(resultUser);
         return result;
+    }
+
+    @Override
+    public QueryWrapper<User> getQueryWrapper(UserQueryRequest userQueryRequest) {
+        QueryWrapper<User> qw = new QueryWrapper<>();
+        String sortField = userQueryRequest.getSortField();
+        String sortOrder = userQueryRequest.getSortOrder();
+        // TODO 添加字段支持搜索
+        String userAccount = userQueryRequest.getUserAccount();
+        String userName = userQueryRequest.getUserName();
+        // TODO 添加查询条件
+        qw.like(StringUtils.isNoneBlank(userAccount), "userAccount", userAccount);
+        qw.like(StringUtils.isNoneBlank(userName), "userName", userName);
+
+        qw.orderBy(StringUtils.isNotBlank(sortField),
+                sortOrder.equals("asc"), sortField);
+        return qw;
     }
 }
 

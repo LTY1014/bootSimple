@@ -21,7 +21,7 @@
 
 数据库+后端 `全部是驼峰命名！！！` 
 
-主键默认都是自增 (可修改为雪花算法)
+主键默认都是自增 (可修改为uuid，具体实现参考主键生成策略)
 
 后端请求用到的是session(前端要种cookie来保存一致性)
 
@@ -40,6 +40,12 @@
 修改bootSimple(application.name)
 
 修改mysql配置
+
+
+
+- 访问
+
+http://127.0.0.1:8088/doc.html
 
 
 
@@ -97,7 +103,7 @@ public class PageRequest implements Serializable
 ```
 create table book
 (
-    id         bigint comment 'id'
+    id         bigint auto_increment comment 'id'
         primary key,
     bookName   varchar(256)                       null comment '书名称',
     author     varchar(256)                       not null comment '作者',
@@ -126,17 +132,22 @@ create table book
 
 
 
-## utils
+## 主键生成策略
 
-### id生成器
-
-- tableId使用
+- id自增(默认)
 
 ```
-@Id
-    @TableId
-    @ApiModelProperty(value = "唯一标识")
-    private String id = SnowFlakeUtil.nextId().toString();
+    @TableId(type = IdType.AUTO)
+    private Long id;
+```
+
+
+
+- uuid
+
+```
+    @TableId(type = IdType.AUTO)
+    private Long id= SnowFlakeUtil.nextId();
 ```
 
 
@@ -224,6 +235,16 @@ request.getSession().setAttribute(UserConstant.USER_LOGIN_STATE, user);
 个人或管理员才可修改
 
 
+
+
+
+## 权限注解
+
+在请求方法上添加，实现AOP响应拦截
+
+```
+@AuthCheck(mustRole = "admin")
+```
 
 
 

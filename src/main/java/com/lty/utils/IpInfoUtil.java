@@ -19,7 +19,7 @@ public class IpInfoUtil {
      * @param request
      * @return
      */
-    public static String getIpAddr(HttpServletRequest request) {
+    public static String getIpAddress(HttpServletRequest request) {
         if (request == null) {
             return UNKNOWN;
         }

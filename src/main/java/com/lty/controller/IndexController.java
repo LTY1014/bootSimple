@@ -1,6 +1,5 @@
 package com.lty.controller;
 
-import com.lty.annotation.AuthCheck;
 import com.lty.common.BaseResponse;
 import com.lty.common.ErrorCode;
 import com.lty.common.ResultUtils;
@@ -76,7 +75,6 @@ public class IndexController {
                 + "<p style=text-align:center;>admin-resource page</p>";
     }
 
-    @AuthCheck(anyRole = "user,admin")
     @ApiOperation(value = "获取端口号")
     @GetMapping( "/getPort")
     public String getPort(){
@@ -85,8 +83,9 @@ public class IndexController {
         return str;
     }
 
+    @ApiOperation(value = "获取IP")
     @GetMapping("/getIp")
     public String getIp(HttpServletRequest request){
-        return IpInfoUtil.getIpAddr(request);
+        return IpInfoUtil.getIpAddress(request);
     }
 }

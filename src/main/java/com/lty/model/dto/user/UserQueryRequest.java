@@ -1,6 +1,6 @@
 package com.lty.model.dto.user;
 
-import com.lty.common.PageRequest;
+import com.lty.common.request.PageRequest;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 

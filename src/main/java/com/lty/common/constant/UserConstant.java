@@ -1,4 +1,4 @@
-package com.lty.constant;
+package com.lty.common.constant;
 
 /**
  * 用户常量

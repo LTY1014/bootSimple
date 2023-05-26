@@ -2,8 +2,8 @@ package com.lty.aop;
 
 import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
 import com.lty.annotation.AuthCheck;
-import com.lty.common.ErrorCode;
-import com.lty.exception.BusinessException;
+import com.lty.common.request.ErrorCode;
+import com.lty.common.exception.BusinessException;
 import com.lty.model.entity.User;
 import com.lty.service.UserService;
 import org.apache.commons.lang3.StringUtils;

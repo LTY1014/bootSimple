@@ -1,7 +1,7 @@
 package com.lty.utils;
 
 import cn.hutool.crypto.SecureUtil;
-import com.lty.constant.BaseConstant;
+import com.lty.common.constant.BaseConstant;
 
 import java.util.Objects;
 import java.util.Random;

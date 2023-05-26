@@ -2,9 +2,9 @@ package com.lty.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.lty.common.ErrorCode;
-import com.lty.constant.UserConstant;
-import com.lty.exception.BusinessException;
+import com.lty.common.request.ErrorCode;
+import com.lty.common.constant.UserConstant;
+import com.lty.common.exception.BusinessException;
 import com.lty.mapper.UserMapper;
 import com.lty.model.dto.user.UserLoginRequest;
 import com.lty.model.dto.user.UserQueryRequest;

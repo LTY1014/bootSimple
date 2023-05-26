@@ -1,6 +1,6 @@
-package com.lty.exception;
+package com.lty.common.exception;
 
-import com.lty.common.ErrorCode;
+import com.lty.common.request.ErrorCode;
 
 /**
  * 抛异常工具类

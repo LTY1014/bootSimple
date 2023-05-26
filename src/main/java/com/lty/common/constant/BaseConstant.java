@@ -1,4 +1,4 @@
-package com.lty.constant;
+package com.lty.common.constant;
 
 import java.nio.charset.StandardCharsets;
 

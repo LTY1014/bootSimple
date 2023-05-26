@@ -1,9 +1,10 @@
 package com.lty.controller;
 
-import com.lty.common.BaseResponse;
-import com.lty.common.ErrorCode;
-import com.lty.common.ResultUtils;
-import com.lty.exception.BusinessException;
+import com.lty.annotation.AuthCheck;
+import com.lty.common.request.BaseResponse;
+import com.lty.common.request.ErrorCode;
+import com.lty.common.request.ResultUtils;
+import com.lty.common.exception.BusinessException;
 import com.lty.service.UserService;
 import com.lty.utils.IpInfoUtil;
 import io.swagger.annotations.ApiOperation;
@@ -36,25 +37,26 @@ public class IndexController {
         return ResultUtils.success("success");
     }
 
-    @ApiOperation(value = "失败",response = ResultUtils.class)
-    @GetMapping( "/fail")
+    @ApiOperation(value = "失败", response = ResultUtils.class)
+    @GetMapping("/fail")
     public BaseResponse error() {
         log.info("error() called with parameters => ");
-        return ResultUtils.error(ErrorCode.PARAMS_ERROR,"参数失败");
+        return ResultUtils.error(ErrorCode.PARAMS_ERROR, "参数失败");
     }
 
-    @ApiOperation(value = "你好")
-    @GetMapping( "/hello")
-    public String hello(@RequestParam(value = "name",required = false) String name) {
-        String str="hello"+name;
+    @ApiOperation(value = "参数请求")
+    @GetMapping("/hello")
+    public BaseResponse<String> hello(@RequestParam(value = "name", required = false) String name) {
+        String str = "hello," + name;
         log.info("hello() called with parameters => [name = {}]", name);
-        return str;
+        return ResultUtils.success(str);
     }
 
+    @AuthCheck(anyRole = {"admin", "test", "user"})
     @ApiOperation(value = "资源页")
     @GetMapping("/resource")
     public String resource(HttpServletRequest request) {
-        if(userService.getLoginUser(request).getId()<0){
+        if (userService.getLoginUser(request).getId() < 0) {
             throw new BusinessException(ErrorCode.OPERATION_ERROR);
         }
         return "<br />"
@@ -63,10 +65,11 @@ public class IndexController {
                 + "<p style=text-align:center;>resource page</p>";
     }
 
+    @AuthCheck(mustRole = "admin")
     @ApiOperation(value = "管理员资源页")
     @GetMapping("/adminResource")
     public String adminResource(HttpServletRequest request) {
-        if(!userService.isAdmin(request)){
+        if (!userService.isAdmin(request)) {
             throw new BusinessException(ErrorCode.OPERATION_ERROR);
         }
         return "<br />"
@@ -76,16 +79,16 @@ public class IndexController {
     }
 
     @ApiOperation(value = "获取端口号")
-    @GetMapping( "/getPort")
-    public String getPort(){
-        String str="当前端口为: "+port;
+    @GetMapping("/getPort")
+    public String getPort() {
+        String str = "当前端口为: " + port;
         log.info(str);
         return str;
     }
 
     @ApiOperation(value = "获取IP")
     @GetMapping("/getIp")
-    public String getIp(HttpServletRequest request){
+    public String getIp(HttpServletRequest request) {
         return IpInfoUtil.getIpAddress(request);
     }
 }

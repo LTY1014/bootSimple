@@ -1,4 +1,4 @@
-package com.lty.common;
+package com.lty.common.request;
 
 /**
  * 错误码

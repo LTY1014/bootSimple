@@ -3,6 +3,7 @@ package com.lty.model.entity;
 import com.baomidou.mybatisplus.annotation.*;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
+import lombok.experimental.Accessors;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.io.Serializable;
@@ -13,6 +14,7 @@ import java.util.Date;
  * @author lty
  * @TableName book
  */
+@Accessors(chain = true)
 @TableName(value ="book")
 @Data
 public class Book implements Serializable {

@@ -2,10 +2,10 @@ package com.lty.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.lty.common.request.BaseResponse;
-import com.lty.common.request.DeleteRequest;
-import com.lty.common.request.ErrorCode;
-import com.lty.common.request.ResultUtils;
+import com.lty.common.requests.BaseResponse;
+import com.lty.common.requests.DeleteRequest;
+import com.lty.common.requests.ErrorCode;
+import com.lty.common.requests.ResultUtils;
 import com.lty.common.exception.BusinessException;
 import com.lty.model.dto.book.BookAddRequest;
 import com.lty.model.dto.book.BookQueryRequest;

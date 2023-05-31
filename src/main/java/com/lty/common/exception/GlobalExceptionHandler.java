@@ -1,8 +1,8 @@
 package com.lty.common.exception;
 
-import com.lty.common.request.BaseResponse;
-import com.lty.common.request.ErrorCode;
-import com.lty.common.request.ResultUtils;
+import com.lty.common.requests.BaseResponse;
+import com.lty.common.requests.ErrorCode;
+import com.lty.common.requests.ResultUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;

@@ -2,7 +2,7 @@ package com.lty.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.lty.common.request.ErrorCode;
+import com.lty.common.requests.ErrorCode;
 import com.lty.common.exception.BusinessException;
 import com.lty.mapper.BookMapper;
 import com.lty.model.dto.book.BookQueryRequest;

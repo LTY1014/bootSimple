@@ -1,4 +1,4 @@
-package com.lty.common.request;
+package com.lty.common.requests;
 
 /**
  * 返回工具类

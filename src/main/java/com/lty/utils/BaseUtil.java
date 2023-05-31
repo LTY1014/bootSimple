@@ -1,7 +1,7 @@
 package com.lty.utils;
 
 import cn.hutool.core.util.StrUtil;
-import com.lty.common.request.ErrorCode;
+import com.lty.common.requests.ErrorCode;
 import com.lty.common.exception.BusinessException;
 
 /**

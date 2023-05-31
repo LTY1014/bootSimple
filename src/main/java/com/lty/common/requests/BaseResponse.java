@@ -1,4 +1,4 @@
-package com.lty.common.request;
+package com.lty.common.requests;
 
 import lombok.Data;
 

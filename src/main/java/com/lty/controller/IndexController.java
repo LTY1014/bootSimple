@@ -1,9 +1,9 @@
 package com.lty.controller;
 
 import com.lty.annotation.AuthCheck;
-import com.lty.common.request.BaseResponse;
-import com.lty.common.request.ErrorCode;
-import com.lty.common.request.ResultUtils;
+import com.lty.common.requests.BaseResponse;
+import com.lty.common.requests.ErrorCode;
+import com.lty.common.requests.ResultUtils;
 import com.lty.common.exception.BusinessException;
 import com.lty.service.UserService;
 import com.lty.utils.IpInfoUtil;

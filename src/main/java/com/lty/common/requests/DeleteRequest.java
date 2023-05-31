@@ -1,9 +1,8 @@
-package com.lty.common.request;
+package com.lty.common.requests;
 
 import lombok.Data;
 
 import java.io.Serializable;
-import java.util.List;
 
 /**
  * 删除请求
